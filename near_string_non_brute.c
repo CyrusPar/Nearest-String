@@ -164,7 +164,7 @@ void greedy_closest_string() {
  * @param elapsed_time The elapsed time to be saved.
  */
 void save_time(double elapsed_time) {
-    FILE *fp = fopen("runtimes.txt", "a");
+    FILE *fp = fopen("runtimes.csv", "a");
     if (!fp) {
         perror("Failed to open time file");
         return;
