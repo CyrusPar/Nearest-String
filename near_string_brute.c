@@ -131,13 +131,11 @@ int max_hamming(const char *candidate) {
 void dfs(char *current, int pos) {
     if (pos == string_length) {
         int cost = max_hamming(current);
-        if (verbose) printf("\t%s -> %d", current, cost);
+        if (verbose) printf("\t%s -> %d \n", current, cost);
         if (cost < best_cost) {
             best_cost = cost;
             strcpy(best_string, current);
         };
-        if (verbose) printf(" : %s\n", best_string);
-        else printf("\n");
         return;
     };
 
