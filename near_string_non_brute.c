@@ -91,7 +91,7 @@ void *read_config_file(const char *filename) {
  *
  */
 void greedy_closest_string() {
-    printf("Step-by-step character selection (Hybrid Greedy):\n\n");
+    if (verbose) printf("Step-by-step character selection (Hybrid Greedy):\n\n");
     int candidate_count;
 
     // Iterate over the input strings
@@ -109,11 +109,11 @@ void greedy_closest_string() {
             freq[c]++;
         };
 
-        printf("Column %d:\n", i);
+        if (verbose) printf("Column %d:\n", i);
         for (int k = 0; k < candidate_count; k++) {
             char c = candidates[k];
             int estimated_max_hamming = num_strings - freq[(unsigned char)c];
-            printf("\t'%c': freq = %d, est max Hamming = %d\n", c, freq[(unsigned char)c], estimated_max_hamming);
+            if (verbose) printf("\t'%c': freq = %d, est max Hamming = %d\n", c, freq[(unsigned char)c], estimated_max_hamming);
         };
 
         // Step 2–3: Select candidates with lowest estimated max Hamming
@@ -154,7 +154,7 @@ void greedy_closest_string() {
             };
         };
         output[i] = final_char;
-        printf("  → Chosen character: '%c'\n\n", final_char);
+        if (verbose) printf("  → Chosen character: '%c'\n\n", final_char);
     };
     output[string_length] = '\0';
 };
