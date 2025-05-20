@@ -88,14 +88,24 @@ void dfs(char *current, int pos) {
     }
 }
 
+void read_config_file(const char *filename) {
+    FILE *fp = fopen(filename, "r");
+    if (!fp) {
+        perror("Failed to open config file");
+        return;
+    }
+
+    fscanf(fp, "%d", &n);
+    fscanf(fp, "%d", &m);
+    for (int i = 0; i < n; i++) {
+        fscanf(fp, "%s", input[i]);
+    }
+
+    fclose(fp);
+}
+
 int main() {
-    n = 5;
-    m = 10;
-    strcpy(input[0], "GATTACBGDC");
-    strcpy(input[1], "GACTACERSA");
-    strcpy(input[2], "GCTTGCHBML");
-    strcpy(input[3], "GATAGCFDRF");
-    strcpy(input[4], "GATTACBGMF");
+    read_config_file("config.txt");
 
     printf("Input Strings:\n");
     for (int i = 0; i < n; i++) {
