@@ -94,7 +94,7 @@ void greedy_closest_string() {
     if (verbose) printf("Step-by-step character selection (Hybrid Greedy):\n\n");
     int candidate_count;
 
-    // Iterate over the input strings
+    // Iterate over the characters of the strings
     for (int i = 0; i < string_length; i++) {
         int freq[ALPHABET_SIZE] = {0};
         char candidates[ALPHABET_SIZE];
