@@ -208,7 +208,6 @@ int main(int argc, char* argv[]) {
     // Start the DFS to find the closest string
     if (verbose) {
         printf("\nStarting Greedy Approach...\n");
-        printf("Hamming Distances (<string> -> <distance> : <best_string (after comparison)>)\n");
     }
 
     greedy_closest_string();
