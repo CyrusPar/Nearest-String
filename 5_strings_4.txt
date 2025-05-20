@@ -1,0 +1,9 @@
+5
+4
+GTTC
+TAGG
+CAGC
+GTTG
+GGTA
+
+GTGC
