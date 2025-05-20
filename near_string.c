@@ -24,35 +24,74 @@ int hamming_distance(const char *a, const char *b) {
 
 // Greedy approach with step-by-step output
 void greedy_closest_string() {
-    printf("Step-by-step character selection (Greedy):\n\n");
+    printf("Step-by-step character selection (Hybrid Greedy):\n\n");
 
     for (int i = 0; i < m; i++) {
         int freq[ALPHABET_SIZE] = {0};
+        char candidates[ALPHABET_SIZE];
+        int candidate_count = 0;
 
+        // Step 1: Count frequency of each character in this column
         for (int j = 0; j < n; j++) {
-            freq[(unsigned char)input[j][i]]++;
+            unsigned char c = input[j][i];
+            if (freq[c] == 0) {
+                candidates[candidate_count++] = c;
+            }
+            freq[c]++;
         }
 
         printf("Column %d:\n", i);
-        for (int c = 0; c < ALPHABET_SIZE; c++) {
-            if (freq[c] > 0)
-                printf("  '%c': %d\n", c, freq[c]);
+        for (int k = 0; k < candidate_count; k++) {
+            char c = candidates[k];
+            int estimated_max_hamming = n - freq[(unsigned char)c];
+            printf("  '%c': freq = %d, est max Hamming = %d\n", c, freq[(unsigned char)c], estimated_max_hamming);
         }
 
-        int max_freq = 0;
-        char best_char = input[0][i];
-        for (int c = 0; c < ALPHABET_SIZE; c++) {
-            if (freq[c] > max_freq) {
-                max_freq = freq[c];
-                best_char = (char)c;
+        // Step 2–3: Select candidates with lowest estimated max Hamming
+        int min_est_hamming = INT_MAX;
+        char tied_chars[ALPHABET_SIZE];
+        int tie_count = 0;
+
+        for (int k = 0; k < candidate_count; k++) {
+            char c = candidates[k];
+            int est = n - freq[(unsigned char)c];
+            if (est < min_est_hamming) {
+                min_est_hamming = est;
+                tie_count = 0;
+                tied_chars[tie_count++] = c;
+            } else if (est == min_est_hamming) {
+                tied_chars[tie_count++] = c;
             }
         }
 
-        output[i] = best_char;
-        printf("  → Chosen character: '%c'\n\n", best_char);
+        // Step 4: Tie-breaking
+        char final_char = 127;  // High ASCII init
+        char first_input_char = input[0][i];
+
+        // Prefer character from first string if tied
+        for (int k = 0; k < tie_count; k++) {
+            if (tied_chars[k] == first_input_char) {
+                final_char = tied_chars[k];
+                break;
+            }
+        }
+
+        // If not found, pick lexicographically smallest
+        if (final_char == 127) {
+            for (int k = 0; k < tie_count; k++) {
+                if (tied_chars[k] < final_char) {
+                    final_char = tied_chars[k];
+                }
+            }
+        }
+
+        output[i] = final_char;
+        printf("  → Chosen character: '%c'\n\n", final_char);
     }
+
     output[m] = '\0';
 }
+
 
 int max_hamming(const char *candidate) {
     int max_dist = 0;
