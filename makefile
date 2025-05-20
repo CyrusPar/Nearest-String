@@ -27,13 +27,14 @@ run: all
 	@rm -f ${TARGET}
 
 run_all: all
+	@clear
 	@echo "Running batches..."
 	@for i in 3 4 5 6; do \
 		echo "Running tests for $$i strings..."; \
 		for len in 4 8 16; do \
 			echo "String length: $$len"; \
 			for j in 1 2 3; do \
-				./${TARGET} "input_files/$${i}_strings_$${len}.txt"; \
+				./${TARGET} "input_files/$${i}_strings_$${len}.txt" ${OPTIONS}; \
 			done; \
 		done; \
 	done
