@@ -35,7 +35,7 @@ void print_strings(char **strings, int count) {
  * @param filename The name of the configuration file.
  * @return A pointer to the array of input strings.
  */
-void* read_config_file(const char *filename) {
+void *read_config_file(const char *filename) {
     FILE *fp = fopen(filename, "r");
     if (!fp) {
         perror("Failed to open config file");
@@ -150,6 +150,21 @@ void dfs(char *current, int pos) {
     };
 };
 
+/**
+ * @brief Function to save the elapsed time to a file.
+ * @param elapsed_time The elapsed time to be saved.
+ */
+void save_time(double elapsed_time) {
+    FILE *fp = fopen("runtimes.txt", "a");
+    if (!fp) {
+        perror("Failed to open time file");
+        return;
+    };
+
+    fprintf(fp, "%d,%d,%.6f\n", num_strings, string_length, elapsed_time);
+    fclose(fp);
+};
+
 int main(int argc, char* argv[]) {
     if (argc < 2) {
         printf("Usage: %s <config file> [-v]\n", argv[0]);
@@ -184,12 +199,26 @@ int main(int argc, char* argv[]) {
         return 1;
     };
 
+    // Start timer
+    struct timespec time_before, time_after;
+
+    clock_gettime(CLOCK_MONOTONIC, &time_before);
     // Start the DFS to find the closest string
     dfs(current, 0);
+    clock_gettime(CLOCK_MONOTONIC, &time_after);
+
+    // Calculate elapsed time
+    double elapsed_time = (time_after.tv_sec - time_before.tv_sec) + (time_after.tv_nsec - time_before.tv_nsec) / 1e9;
+
+    save_time(elapsed_time);
+    printf("Time elapsed: %.6f seconds\n", elapsed_time);
 
     // Output the best string found
     printf("Best string found: %s\n", best_string);
     printf("Best cost: %d\n", best_cost);
+
+    free(current);
+    free(input);
 
     return 0;
 
