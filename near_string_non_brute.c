@@ -221,7 +221,7 @@ int main(int argc, char* argv[]) {
     printf("Time elapsed: %.6f seconds\n", elapsed_time);
 
     // Output the best string found
-    printf("Best string found: %s\n", output);
+    printf("Closest string found: %s\n", output);
 
     free(input);
 
