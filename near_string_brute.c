@@ -170,7 +170,7 @@ void save_time(double elapsed_time) {
 
 int main(int argc, char* argv[]) {
     if (argc < 2) {
-        printf("Usage: %s <config file> [-v]\n", argv[0]);
+        printf("Usage: %s <config_file> [-v]\n", argv[0]);
         return 1;
     };
 
