@@ -137,6 +137,7 @@ void greedy_closest_string() {
         char final_char = 127;  // High ASCII init
         char first_input_char = input[0][i];
 
+        //referene: https://archive.org/details/gusfield-dan-algorithms-on-strings-trees-and-sequences-computer-science-and-comp?utm_source=chatgpt.com
         // Prefer character from first string if tied
         for (int k = 0; k < tie_count; k++) {
             if (tied_chars[k] == first_input_char) {
@@ -145,6 +146,7 @@ void greedy_closest_string() {
             };
         };
 
+        //reference: https://www.geeksforgeeks.org/lexicographic-rank-of-a-string/
         // If not found, pick lexicographically smallest
         if (final_char == 127) {
             for (int k = 0; k < tie_count; k++) {

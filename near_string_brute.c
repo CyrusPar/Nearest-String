@@ -127,6 +127,8 @@ int max_hamming(const char *candidate) {
  * @brief Function to perform a depth-first search (DFS) to find the closest string.
  * @param current The current string being constructed.
  * @param pos The current position in the string.
+ * references: https://www.geeksforgeeks.org/depth-first-search-or-dfs-for-a-graph/
+ *
  */
 void dfs(char *current, int pos) {
     if (pos == string_length) {
